@@ -13,7 +13,7 @@
             <div class="col-md-9"><%- data.content %> </div>
             <hr>
             <div class="text-center m-3">
-                <button class="btn btn-success" style="width: 100px;">Chỉnh sửa</button>
+                <button class="btn btn-success btn-edit" style="width: 100px;" id="btn-edit" data-id="<%= data.idpost %>">Chỉnh sửa</button>
                 <button class="btn btn-danger post-dl" style="width: 100px;" data-bs-toggle="modal" data-bs-target="#modelDelete" data-idpost="<%= data.idpost %>">Xóa</button>
             </div>
         </div>
@@ -39,3 +39,13 @@
     </div>
     <script src="/javascripts/post.js"></script>
 <%- include footer %> 
+<script>
+  $(document).ready(function () {
+    const id = $('#btn-edit').data('id');
+    $('#btn-edit').click(() =>{
+      //console.log($('#btn-edit').data('id'));
+      location.href = `/author/post/${id}/edit`;
+  })
+  });
+  
+</script>
