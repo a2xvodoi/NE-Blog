@@ -94,5 +94,9 @@ module.exports ={
             });
         })
         
+    },
+    logout: (req, res, next) =>{
+        req.session.author = false;
+        res.redirect('/login');
     }
 }

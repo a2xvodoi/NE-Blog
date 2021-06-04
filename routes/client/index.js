@@ -10,6 +10,8 @@ router.get('/', indexController.index);
 //login
 router.get('/login', loginMiddle.checkLogin, indexController.getLogin);
 router.post('/login', loginMiddle.validateInputFormLogin, indexController.login);
+//logout
+router.get('/logout', indexController.logout);
 
 router.get('/detailBlog/:id', indexController.detailBlog);
 
