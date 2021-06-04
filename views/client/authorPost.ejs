@@ -1,5 +1,10 @@
 <%- include header %>
-    <%- include nav %> 
+    <%- include nav %>
+    <% if (err) { %>
+      <div class="container mt-5 mb-5 p-4 category alert alert-dark">
+        <h2 class="text-center text-danger"><%= err %> </h2>
+      </div>
+    <% } else { %>
     <div class="container mt-5 mb-5 p-4 category alert alert-dark">
         <% if (author) { %>
             <h2 class="text-center"><%= author.name %> </h2>
@@ -42,6 +47,7 @@
             
           </div>
         </div>
-      </main>
-      <!--main-->
+    </main>
+    <!--main-->
+    <% } %> 
 <%- include footer %> 

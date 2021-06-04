@@ -10,11 +10,17 @@ module.exports ={
                 data: data,
                 author: {
                     name: data[0].authorName,
-                }
+                },
+                err: false,
             });
         })
         .catch(err =>{
-            console.log('Err: ' + err);
+            res.render('client/authorPost',{
+                title: 'Lỗi',
+                err: 'Không tìm thấy bài viết nào',
+                data: false,
+                author: false,
+            });
         })
     },
     postIndex: (req, res, next) =>{
