@@ -1,0 +1,41 @@
+<%- include header %> 
+    <%- include nav %> 
+    <div class="container">
+        <div class="text-center h2 p-5 text-black-50">Chi tiết bài viết</div>
+        <div class="row">
+            <div class="col-md-3 fw-bold">Tiêu đề </div>
+            <div class="col-md-9"><%= data.title %> </div>
+            <hr>
+            <div class="col-md-3 fw-bold">Danh mục </div>
+            <div class="col-md-9"><%= data.categoryName %> </div>
+            <hr>
+            <div class="col-md-3 fw-bold">Nội dung </div>
+            <div class="col-md-9"><%- data.content %> </div>
+            <hr>
+            <div class="text-center m-3">
+                <button class="btn btn-success" style="width: 100px;">Chỉnh sửa</button>
+                <button class="btn btn-danger post-dl" style="width: 100px;" data-bs-toggle="modal" data-bs-target="#modelDelete" data-idpost="<%= data.idpost %>">Xóa</button>
+            </div>
+        </div>
+    </div>
+    <form method="POST" name="form-delete"></form>
+    <!-- Modal -->
+    <div class="modal fade" id="modelDelete" tabindex="-1" aria-labelledby="modelLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modelLabel">Xóa bài viết</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc muốn xóa bài viết này?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-delete">Xác nhận</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/javascripts/post.js"></script>
+<%- include footer %> 

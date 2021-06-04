@@ -1,0 +1,71 @@
+<%- include('header')  %>
+    <%- include('nav')  %>
+    <div class="h2 mt-5 ms-5">Quản lý bài viết</div>
+    <div class="container post">
+        <a href="/author/post/create" class="ms-4">Thêm bài viết</a>
+        <div class="card mb-4">
+            <div class="card-header">
+              <h4 class="card-heading">Bài viết của tôi</h4>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table card-text">
+                <thead>
+                  <tr class="align-top">
+                    <th>Mã</th>
+                    <th>Tiêu đề</th>
+                    <th>Nội dung</th>
+                    <th>Danh mục</th>
+                    <th>Sửa đổi</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% if (data) { %>
+                     <% data.forEach(item => { %>
+                        <tr>
+                            <th scope="row"><%= item.idpost %> </th>
+                            <td><%= item.title %></td>
+                            <td><%= item.pre %></td>
+                            <td><%= item.categoryName %></td>
+                            <% 
+                              var updated_at = item.updated_at;
+                              var year = updated_at.getFullYear();
+                              var month = updated_at.getMonth() + 1;
+                              var day = updated_at.getDay();
+                              updated_at = day + '/' + month + '/' + year;
+                            %> 
+                            <td><%= updated_at %></td>
+                            <td>
+                                <a href="/author/post/<%= item.idpost %>" class="btn btn-info" >Chi tiết</a>
+                                <a href="/author/post/<%= item.idpost %>/edit" class="btn btn-secondary" >Sửa</a>    
+                                <a href="#" class="btn btn-danger post-dl" data-bs-toggle="modal" data-bs-target="#modelDelete" data-idpost="<%= item.idpost %>">Xóa</a>
+                            </td>
+                          </tr>
+                     <% }) %>
+                    <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </div>
+    <form method="POST" name="form-delete"></form>
+    <!-- Modal -->
+    <div class="modal fade" id="modelDelete" tabindex="-1" aria-labelledby="modelLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modelLabel">Xóa bài viết</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc muốn xóa bài viết này?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-delete">Xác nhận</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/javascripts/post.js"></script>
+<%- include('footer')  %>

@@ -1,10 +1,12 @@
 
 const indexRoute = require('./client');
-const userRoute = require('./client/users');
+const authorRoute = require('./client/author');
+const categoryRoute = require('./client/category');
 
 function router(app){
     app.use('/', indexRoute);
-    app.use('/users', userRoute);
+    app.use('/author', authorRoute);
+    app.use('/category', categoryRoute);
 }
 
 module.exports = router;

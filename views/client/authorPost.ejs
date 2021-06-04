@@ -1,0 +1,47 @@
+<%- include header %>
+    <%- include nav %> 
+    <div class="container mt-5 mb-5 p-4 category alert alert-dark">
+        <% if (author) { %>
+            <h2 class="text-center"><%= author.name %> </h2>
+        <% } %>
+    </div>
+    
+    <!--main-->
+    <main class="main">
+        <div class="container">
+          <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
+              <!--card-->
+              <% if (data) { %>
+                <% data.forEach(item=> { %>
+                    <div class="col">
+                  <div class="card mb-4" style="height: 500px;">
+                    <div class="card-header"><%= item.categoryName %> </div>
+                    <a href="/detailBlog/<%= item.idpost %> ">
+                      <img
+                        src="https://itviec.com/blog/wp-content/uploads/2021/05/machine-learning-la-gi-thumbnail-1-1.jpg"
+                        class="card-img-top" alt="img">
+                    </a>
+                    <div class="card-body">
+                        <a href="/detailBlog/<%= item.idpost %> " style="text-decoration: none;">
+                            <h2 class="card-title h4"><%= item.title %> </h2>
+                        </a>
+                      <h6 class="card-subtitle mb-2 text-muted">
+                        <img src="https://itviec.com/blog/wp-content/uploads/2021/03/blog-avatar.jpg" alt="">
+                        <%= item.authorName %> 
+                      </h6>
+                      
+                      <span class="card-text"><%- item.pre.slice(0,99) + ' ...' %> </span>
+                      
+                    </div>
+                    
+                  </div>
+                </div>
+                  <% }) %>
+              <% } %>
+              <!--card-->
+            
+          </div>
+        </div>
+      </main>
+      <!--main-->
+<%- include footer %> 

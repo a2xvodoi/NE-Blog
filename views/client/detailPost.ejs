@@ -4,50 +4,81 @@
   <main class="main pt-4">
     <div class="container">
       <div class="row">
-        <div class="col-md-9">
-            
-        </div>
-        <div class="col-md-3 ml-auto">
-          <aside class="sidebar">
-            <div class="card mb-4">
-              <div class="card-body">
-                <h4 class="card-title">About</h4>
-                <p class="card-text">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam <a
-                    href="#">semper libero</a>, sit amet adipiscing sem neque sed ipsum. </p>
-              </div>
-            </div><!-- /.card -->
-          </aside>
-          <aside class="sidebar sidebar-sticky">
-            <div class="card mb-4">
-              <div class="card-body">
-                <h4 class="card-title">Tags</h4>
-                <a class="btn btn-light btn-sm mb-1" href="page-category.html">Journey</a>
-                <a class="btn btn-light btn-sm mb-1" href="page-category.html">Work</a>
-                <a class="btn btn-light btn-sm mb-1" href="page-category.html">Lifestype</a>
-                <a class="btn btn-light btn-sm mb-1" href="page-category.html">Photography</a>
-                <a class="btn btn-light btn-sm mb-1" href="page-category.html">Food &amp; Drinks</a>
-              </div>
-            </div><!-- /.card -->
-            <div class="card mb-4">
-              <div class="card-body">
-                <h4 class="card-title">Popular stories</h4>
+          <% if (data) { %>
+            <div class="col-md-9">
+              <div class="card mb-4">
+                <% if (data.statusErr) { %>
+                  <div class="alert alert-danger text-center p-5 m-5"><%= data.err %> </div>
+                  <% } else { %>
+                
+                  <div class="card-header">
+                      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><%= data.categoryName %> </li>
+                          </ol>
+                        </nav>
+                  </div>
+                  <img src="https://itviec.com/blog/wp-content/uploads/2021/05/machine-learning-la-gi-thumbnail-1-1.jpg"
+                    class="card-img-top" alt="img">
+                  
+                  <div class="card-body">
+                    <h2 class="card-title h2"><%= data.title %> </h2>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      <a href="/author/<%= data.idAuthor %>">
+                      <img src="https://itviec.com/blog/wp-content/uploads/2021/03/blog-avatar.jpg" alt="">
+                      <%= data.authorName %></a>
+                    </h6>
+                    <%- data.content %> 
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">Last updated <%= data.updated_at %> </small>
+                  </div>
+                  <% } %>
+                </div>
+          </div>
+          <% } %>
+          <div class="col-md-3 ml-auto">
+            <aside class="sidebar">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">About</h4>
+                  <p class="card-text">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam <a
+                      href="#">semper libero</a>, sit amet adipiscing sem neque sed ipsum. </p>
+                </div>
+              </div><!-- /.card -->
+            </aside>
+            <aside class="sidebar sidebar-sticky">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">Tags</h4>
+                  <a class="btn btn-light btn-sm mb-1" href="page-category.html">Journey</a>
+                  <a class="btn btn-light btn-sm mb-1" href="page-category.html">Work</a>
+                  <a class="btn btn-light btn-sm mb-1" href="page-category.html">Lifestype</a>
+                  <a class="btn btn-light btn-sm mb-1" href="page-category.html">Photography</a>
+                  <a class="btn btn-light btn-sm mb-1" href="page-category.html">Food &amp; Drinks</a>
+                </div>
+              </div><!-- /.card -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">Popular stories</h4>
 
-                <a href="post-image.html" class="d-inline-block">
-                  <h4 class="h6">The blind man</h4>
-                  <img class="card-img" src="img/articles/2.jpg" alt="">
-                </a>
-                <time class="timeago" datetime="2019-10-03 20:00" timeago-id="5">1 year ago</time> in Lifestyle
+                  <a href="post-image.html" class="d-inline-block">
+                    <h4 class="h6">The blind man</h4>
+                    <img class="card-img" src="img/articles/2.jpg" alt="">
+                  </a>
+                  <time class="timeago" datetime="2019-10-03 20:00" timeago-id="5">1 year ago</time> in Lifestyle
 
-                <a href="post-image.html" class="d-inline-block mt-3">
-                  <h4 class="h6">Crying on the news</h4>
-                  <img class="card-img" src="img/articles/3.jpg" alt="">
-                </a>
-                <time class="timeago" datetime="2019-07-16 20:00" timeago-id="6">1 year ago</time> in Work
+                  <a href="post-image.html" class="d-inline-block mt-3">
+                    <h4 class="h6">Crying on the news</h4>
+                    <img class="card-img" src="img/articles/3.jpg" alt="">
+                  </a>
+                  <time class="timeago" datetime="2019-07-16 20:00" timeago-id="6">1 year ago</time> in Work
 
-              </div>
-            </div><!-- /.card -->
-          </aside>
-        </div>
+                </div>
+              </div><!-- /.card -->
+            </aside>
+          </div>
       </div>
     </div>
   </main>
