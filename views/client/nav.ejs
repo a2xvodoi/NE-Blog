@@ -46,12 +46,21 @@
                     <% } %>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-
+            <form class="d-flex" name="form-search" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search" name="q">
             </form>
 
         </div>
     </div>
 </nav>
 <!--nav-->
+<script>
+    var formSearch = document.forms['form-search'];
+    $('#search').keypress((e) =>{
+        if (e.which == 13) {
+            e.preventDefault();
+            formSearch.action = `/search/`;
+            formSearch.submit();
+        }
+    })
+</script>

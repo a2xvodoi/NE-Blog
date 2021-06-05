@@ -6,6 +6,8 @@ const indexController = require('../../controllers/client');
 
 /* GET home page. */
 router.get('/', indexController.index);
+/* GET search page. */
+router.get('/search', indexController.search);
 
 //login
 router.get('/login', loginMiddle.checkLogin, indexController.getLogin);

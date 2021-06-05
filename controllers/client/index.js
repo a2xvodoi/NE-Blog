@@ -22,6 +22,28 @@ module.exports ={
             });
         })
     },
+    search: (req, res, next) =>{
+        const q = req.query.q;
+        post_md.getAllPost()
+        .then(post =>{
+            var result = [];
+            post.forEach(item => {
+                if (item.title.toLowerCase().indexOf(q.toLowerCase()) !== -1) {
+                    result.push(item);
+                }
+            });
+            res.render('client/search',{
+                title: 'Tìm kiếm ' + q,
+                data: result,
+                q: q,
+                author: req.session.author ?? 0 ,
+            })
+            //res.json(result);
+        })
+        .catch(err =>{
+            res.render('error');
+        })
+    },
     detailBlog : (req, res, next) =>{
         
         post_md.getPostByIdPost(req.params.id)
