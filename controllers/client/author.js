@@ -37,7 +37,7 @@ module.exports ={
         })
     },
     getDetail: (req, res, next) =>{
-        post_md.getPostByIdPost(req.params.id)
+        post_md.getPostByIdPostAuthor(req.params.id, req.session.author.idAuthor)
         .then(data=>{
             res.render('client/detailPostOfAuthor',{
                 title: 'Chi tiết bài viết',
@@ -78,7 +78,7 @@ module.exports ={
         })
     },
     getEditPost: (req, res, next) =>{
-        Promise.all([post_md.getPostByIdPostAuthor(req.params.id,1),category_md.getAllCategory()])
+        Promise.all([post_md.getPostByIdPostAuthor(req.params.id,req.session.author.idAuthor),category_md.getAllCategory()])
         .then(([data,category]) =>{
             res.render('client/editPost',{
                 title: 'Sửa bài viết',

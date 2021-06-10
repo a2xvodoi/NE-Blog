@@ -1,0 +1,10 @@
+.bg-login-image{
+    background: url('/assets/img/bg-login.jpg');
+    background-size: cover;
+    background-position: center;
+}
+td .btn{
+    width: 100px;
+    margin-bottom: 2px;
+
+}

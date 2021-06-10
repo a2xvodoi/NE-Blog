@@ -1,0 +1,99 @@
+<%- include('../header',{title: 'Thông tin tác giả'}) %> 
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include ../sidebar %> 
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include ../topbar %> 
+                <!-- End of Topbar -->
+                
+                <!-- Begin Page Content -->
+
+                <!-- container-fluid -->
+                <% if (data) { %>
+                    <div class="container-fluid">
+                        <div class="text-center h4 m-5">Thông tin tác giả</div> 
+                        <div class="row row-cols-md-2 row-cols-1">
+                            <div class="col mt-3">
+                                <div>Mã tác giả: <%= data.idAuthor %> </div>
+                            </div>
+                            <div class="col mt-3">
+                                <div>Avatar: <%= data.avatar %> </div>
+                            </div>
+                            <div class="col mt-3">
+                                <div>Tên đăng nhập: <%= data.accountName %> </div>
+                            </div>
+                            <div class="col mt-3">
+                                <div>Mật khẩu: <%= data.pass %> </div>
+                            </div>
+                            <div class="col mt-3">
+                                <div>Tên tác giả: <%= data.authorName %> </div>
+                            </div>
+                            <div class="col mt-3">
+                                <div>Nghề nghiêp: <%= data.job %> </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div>Giới thiệu: <%= data.intro %> </div>
+                        </div>
+                        <div class="text-center m-5">
+                            <a href="/admin/author/<%= data.idAuthor %>/edit" class="btn btn-primary" style="width: 100px;">Chỉnh sửa</a>
+                            <a href="#" class="btn btn-danger post-dl" style="width: 100px;" data-toggle="modal" data-target="#modelDeleteAuthor" data-idauthor="<%= data.idAuthor %>">Xóa</a>
+                          </div>
+                    </div>
+                <% } else { %>
+                  <div class="text-center text-danger">Không tìm thấy tác giả</div>
+                <% } %>
+                
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include ../topfooter %> 
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    
+    <form method="POST" name="form-delete"></form>
+    <!-- Modal -->
+    <div class="modal fade" id="modelDeleteAuthor" tabindex="-1" aria-labelledby="modelLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modelLabel">Xóa tác giả</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc muốn xóa tác giả này?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-delete">Xác nhận</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<%- include('../footer') %> 
+<script src="/assets/js/author.js"></script>

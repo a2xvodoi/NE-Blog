@@ -91,4 +91,15 @@ module.exports = {
             })
         })
     },
+    deletePostByIdAuthor: (id) =>{
+        return new Promise((reslove,reject)=>{
+            var sql = 'DELETE FROM post WHERE idAuthor = ?';
+            conn.query(sql,[id],(err,result)=>{
+                if (err) {
+                    reject(err);
+                }
+                reslove(result);
+            })
+        })
+    },
 }

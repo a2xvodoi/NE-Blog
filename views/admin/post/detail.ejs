@@ -1,0 +1,96 @@
+<%- include('../header',{title: 'Chi tiết bài viết'}) %> 
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include ../sidebar %> 
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include ../topbar %> 
+                <!-- End of Topbar -->
+                
+                <!-- Begin Page Content -->
+                <% if (data) { %>
+                  <div class="container-fluid">
+                    <% 
+                        var updated_at = data.updated_at;
+                        var year = updated_at.getFullYear();
+                        var month = updated_at.getMonth() + 1;
+                        var day = updated_at.getDate();
+                        updated_at = day + '/' + month + '/' + year;
+                    %> 
+                    <h3 class="text-center"><%= data.title %> <sub style="font-style: italic;"><%= updated_at %></sub></h3>
+                    <div class="row row-cols-md-2 row-cols-1 mt-5">
+                        <div class="col">
+                            Tác giả: <%= data.authorName %> 
+                        </div>
+                        <div class="col">
+                            Danh mục: <%= data.categoryName %> 
+                        </div>
+                    </div>
+                    <div class="h3 mt-3">Nội dung</div>
+                    <div class="card mb-4">
+                      
+                      <div class="card-body">
+                          <%- data.content %> 
+                      </div>
+                  </div>
+                  <div class="text-center">
+                    
+                    <a href="#" class="btn btn-danger post-dl" data-toggle="modal" data-target="#modelDelete" data-idpost="<%= data.idpost %>">Xóa</a>
+                  </div>
+                  </div>
+                <% } else { %>
+                   <div class="text-danger text-center">Không tìm thấy bài viết</div>
+                <% } %>
+                
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include ../topfooter %> 
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    
+    <form method="POST" name="form-delete"></form>
+    <!-- Modal -->
+    <div class="modal fade" id="modelDelete" tabindex="-1" aria-labelledby="modelLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modelLabel">Xóa bài viết</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có chắc muốn xóa bài viết này?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-delete">Xác nhận</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<%- include('../footer') %> 
+<script src="/assets/js/post.js"></script>

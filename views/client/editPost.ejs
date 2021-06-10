@@ -37,8 +37,8 @@
                     <% } %>
                     
                 <input type="text" hidden name="pre" id="pre">
-                
                 <button class="btn btn-success btn-edit" type="submit">Sửa</button>
+                <button class="btn btn-secondary btn-exit ">Hủy bỏ</button>
             </div>
         </form>
 <%- include('footer') %>
@@ -47,5 +47,7 @@
         var pre = tinymce.activeEditor.getContent({format: "text"});
     $('#pre').val(pre.slice(0,200) + ' ...');
     })
-    
+    $('.btn-exit').click(() =>{
+        window.history.back();
+    })
 </script>

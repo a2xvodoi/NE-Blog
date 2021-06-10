@@ -85,7 +85,7 @@ module.exports ={
     login: (req, res, next) =>{
         var data = req.body;
 
-        author_md.getAuthorById(req.body.accountName)
+        author_md.getAuthorByName(req.body.accountName)
         .then(author =>{
             if (author[0].pass === data.pass) {
                 req.session.author = author[0];

@@ -31,7 +31,7 @@
                               var updated_at = item.updated_at;
                               var year = updated_at.getFullYear();
                               var month = updated_at.getMonth() + 1;
-                              var day = updated_at.getDay();
+                              var day = updated_at.getDate();
                               updated_at = day + '/' + month + '/' + year;
                             %> 
                             <td><%= updated_at %></td>
