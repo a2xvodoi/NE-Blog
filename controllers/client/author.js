@@ -1,16 +1,48 @@
 const post_md = require('../../models/post');
 const category_md = require('../../models/category');
+const author_md = require('../../models/author');
 
 module.exports ={
+    postInfo: (req, res, next) =>{
+        author_md.getAuthorById(req.session.author.idAuthor)
+        .then(data =>{
+            res.render('client/infoAuthor',{
+                title: 'Thông tin cá nhân',
+                data: data[0],
+                author: req.session.author ?? 0 ,
+            })
+        })
+        .catch(err =>{
+            res.status(500).send('Có lỗi xảy ra');
+        })
+    },
+    putInfo: async (req, res, next) =>{
+        var data = req.body;
+        const author = await author_md.getAuthorById(data.idAuthor);
+        data = {
+            idAuthor: data.idAuthor,
+            accountName: data.accountName ? data.accountName : author[0].accountName,
+            pass: data.pass ? data.pass : author[0].pass,
+            authorName: data.authorName ? data.authorName : author[0].authorName,
+            job: data.job,
+            intro: data.intro,
+            avatar: req.file ? req.file.filename : author[0].avatar,
+        }
+        author_md.editAuthor(data)
+        .then(data =>{
+            res.json({status: 200});
+        })
+        .catch(err =>{
+            res.json({status: 500});
+        })
+    },
     listPostByAuthor: (req, res, next) =>{
         post_md.getPostByIdAuthor(req.params.id)
         .then(data=>{
             res.render('client/authorPost',{
                 title: data[0].authorName,
                 data: data,
-                author: {
-                    name: data[0].authorName,
-                },
+                author: data[0],
                 err: false,
             });
         })

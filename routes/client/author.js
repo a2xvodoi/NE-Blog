@@ -1,9 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const multer  = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/uploads');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
 
 const loginMiddle = require('../../middlewares/loginAuthorMiddleware');
-
 const authorController = require('../../controllers/client/author');
+
+/* GET info of author. */
+router.get('/info',loginMiddle.requireLogin, authorController.postInfo);
+router.post('/info',upload.single('avatar'), authorController.putInfo);
 
 /* GET post of author. */
 router.get('/post',loginMiddle.requireLogin, authorController.postIndex);

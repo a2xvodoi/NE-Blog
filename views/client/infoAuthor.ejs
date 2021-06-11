@@ -1,0 +1,99 @@
+<%- include('header')  %>
+    <%- include('nav')  %>
+    
+    <div class="container m-5">
+        <form action="/author/info" method="POST" enctype="multipart/form-data" id="form-edit">
+            <div class="text-center mb-3">
+                <img src="/uploads/<%= data.avatar %> " id="img-avatar" alt="avatar" style="width: 100px; height: 100px; border-radius: 100px; margin: 10px;box-shadow: 2px 2px 2px black;">
+                <br>
+                <input type="file" id="avatar" name="avatar" style="display: none;">
+                <label for="avatar">Đổi hình</label>
+            </div>
+            <input type="text" class="form-control" id="idAuthor" name="idAuthor"  value="<%= data.idAuthor %>" hidden>
+            <div class="row row-cols-md-2 row-cols-1">
+                <div class="col mb-3">
+                    <label for="accountName">Tên đăng nhập</label>
+                    <input type="text" class="form-control" id="accountName" name="accountName" placeholder="Tên đăng nhập" value="<%= data.accountName %>">
+                </div>
+                <div class="col mb-3">
+                    <label for="pass">Mật khẩu</label>
+                    <!-- <input type="password" class="form-control" id="pass" name="pass" placeholder="Mật khẩu" value="<%= data.pass %>"> -->
+                </div>
+                <div class="col mb-3">
+                    <label for="authorName">Tên tác giả</label>
+                    <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Tên tác giả" value="<%= data.authorName %>">
+                </div>
+                <div class="col mb-3">
+                    <label for="job">Nghề nghiệp</label>
+                    <input type="text" class="form-control" id="job" name="job" placeholder="Nghề nghiệp" value="<%= data.job %>">
+                </div>
+                <div class="mb-3" style="width: 100%;">
+                    <label for="intro">Giới thiệu</label>
+                    <textarea class="form-control" placeholder="Giới thiệu" id="intro" name="intro" rows="5"><%= data.intro %></textarea>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-success btn-edit">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+<%- include('footer')  %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#avatar').change((e) =>{
+        if ($('#avatar').val() != '') {
+            var ext = $('#avatar').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext,['jpg','jpeg','png']) == -1) {
+                alert('Chỉ hỗ trợ nhận dạng ảnh JPG, JPEG, PNG');
+                $('#avatar').val('');
+            } else {
+                $('#img-avatar').attr('src',URL.createObjectURL(e.target.files[0]));
+            }
+        } else {
+            
+        }
+    })
+    $('#form-edit').submit(() =>{
+        $(this).ajaxSubmit({
+            success: function(res){
+                if (res && res.status == 200) {
+                    location.reload();
+                    return;
+                }
+                location.reload();
+            },
+            error: function(e){
+                alert('Chỉnh sửa thông tin thất bại');
+            }
+        })
+    })
+    // var formEdit = document.forms['form-edit'];
+    // $('.btn-edit').click((e)=>{
+    //     e.preventDefault();
+    //     $.ajax({
+    //     method: "POST",
+    //     url: "/author/info",
+    //     data: {
+    //         accountName: $('#accountName').val(),
+    //         authorName: $('#authorName').val(),
+    //         job: $('#job').val(),
+    //         intro: $('#intro').val(),
+    //         idAuthor: $('#idAuthor').val(),
+    //         pass: null,
+    //     },
+    //     dataType: "JSON",
+    //     success: function (response) {
+    //         if (response && response.status == 200) {
+    //             location.reload();
+    //             return;
+    //         }
+    //         alert('Chỉnh sửa thông tin thất bại!');
+    //     }
+    // });
+
+    // })
+    
+    });
+    
+</script>
