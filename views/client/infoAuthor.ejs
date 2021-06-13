@@ -2,7 +2,7 @@
     <%- include('nav')  %>
     
     <div class="container m-5">
-        <form action="/author/info" method="POST" enctype="multipart/form-data" id="form-edit">
+        <form action="/author/info?_method=PUT" method="POST" enctype="multipart/form-data" id="form-edit">
             <div class="text-center mb-3">
                 <img src="/uploads/<%= data.avatar %> " id="img-avatar" alt="avatar" style="width: 100px; height: 100px; border-radius: 100px; margin: 10px;box-shadow: 2px 2px 2px black;">
                 <br>
@@ -18,6 +18,8 @@
                 <div class="col mb-3">
                     <label for="pass">Mật khẩu</label>
                     <!-- <input type="password" class="form-control" id="pass" name="pass" placeholder="Mật khẩu" value="<%= data.pass %>"> -->
+                    <br>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#passModal">Đổi mật khẩu</button>
                 </div>
                 <div class="col mb-3">
                     <label for="authorName">Tên tác giả</label>
@@ -37,6 +39,38 @@
             </div>
         </form>
     </div>
+    <!--Modal change pass-->
+    <div class="modal fade" id="passModal" tabindex="-1" aria-labelledby="passModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="passModalLabel">Thay đổi mật khẩu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="passOld" class="col-form-label">Mật khẩu cũ:</label>
+                  <input type="password" class="form-control" id="passOld">
+                </div>
+                <div class="mb-3">
+                  <label for="newPass" class="col-form-label">Mật khẩu mới:</label>
+                  <input type="password" class="form-control" id="newPass"/>
+                </div>
+                <div class="mb-3">
+                  <label for="newPassO" class="col-form-label">Xác nhận mật khẩu:</label>
+                  <input type="password" class="form-control" id="newPassO"/>
+                  <label id="mess-repass" class="text-danger d-none"></label>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-closed" data-bs-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary btn-oke">Xác nhận</button>
+            </div>
+          </div>
+        </div>
+      </div>
 <%- include('footer')  %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 <script>
@@ -54,46 +88,68 @@
             
         }
     })
-    $('#form-edit').submit(() =>{
-        $(this).ajaxSubmit({
-            success: function(res){
-                if (res && res.status == 200) {
+        $('#form-edit').submit(() =>{
+            $(this).ajaxSubmit({
+                success: function(res){
+                    if (res && res.status == 200) {
+                        location.reload();
+                        return;
+                    }
                     location.reload();
+                },
+                error: function(e){
+                    location.reload();
+                }
+            })
+        })
+        });
+        $('#passModal').on('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            $(this).find('#newPassO').keyup(()=>{
+                var newPass = $('#newPass').val();
+                var rePass = $('#newPassO').val();
+                var messRe = $('#mess-repass');
+                if ($.trim(newPass) !== $.trim(rePass)) {
+                    messRe.removeClass('d-none');
+                    messRe.text('Nhập lại mật khẩu không chính xác');
+                }else{
+                    messRe.text('');
+                    messRe.addClass('d-none');
+                }
+            });
+            $('.btn-oke').click(() =>{
+                var oldPass = $('#passOld').val();
+                var newPass = $('#newPass').val();
+                var rePass = $('#newPassO').val();
+                var messRe = $('#mess-repass');
+                messRe.text('');
+                if ($.trim(oldPass) === '' || $.trim(newPass) === '' || $.trim(rePass) === '' ) {
+                    messRe.removeClass('d-none');
+                    messRe.text('Vui lòng nhập đủ các trường');
                     return;
                 }
-                location.reload();
-            },
-            error: function(e){
-                alert('Chỉnh sửa thông tin thất bại');
-            }
+                if ($.trim(messRe.text()) !== '') {
+                    return;
+                }
+                $.ajax({
+                type: "PUT",
+                url: "/author/info/change-pass",
+                data: {
+                    passOld: oldPass,
+                    passNew: newPass,
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    if (response.status === 200 && response.success === 0) {
+                        alert('Mật khẩu không chính xác');
+                        return;
+                    }
+                    $('.btn-closed').click();
+                    alert("Đổi mật khẩu thành công");
+                }
+            });
+        
+            })
+            
         })
-    })
-    // var formEdit = document.forms['form-edit'];
-    // $('.btn-edit').click((e)=>{
-    //     e.preventDefault();
-    //     $.ajax({
-    //     method: "POST",
-    //     url: "/author/info",
-    //     data: {
-    //         accountName: $('#accountName').val(),
-    //         authorName: $('#authorName').val(),
-    //         job: $('#job').val(),
-    //         intro: $('#intro').val(),
-    //         idAuthor: $('#idAuthor').val(),
-    //         pass: null,
-    //     },
-    //     dataType: "JSON",
-    //     success: function (response) {
-    //         if (response && response.status == 200) {
-    //             location.reload();
-    //             return;
-    //         }
-    //         alert('Chỉnh sửa thông tin thất bại!');
-    //     }
-    // });
-
-    // })
-    
-    });
-    
 </script>

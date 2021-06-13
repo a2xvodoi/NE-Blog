@@ -16,7 +16,8 @@ const authorController = require('../../controllers/client/author');
 
 /* GET info of author. */
 router.get('/info',loginMiddle.requireLogin, authorController.postInfo);
-router.post('/info',upload.single('avatar'), authorController.putInfo);
+router.put('/info',upload.single('avatar'), authorController.putInfo);
+router.put('/info/change-pass',authorController.changePass);
 
 /* GET post of author. */
 router.get('/post',loginMiddle.requireLogin, authorController.postIndex);

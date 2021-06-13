@@ -46,6 +46,17 @@ module.exports = {
             })
         })
     },
+    changePass: (data) =>{
+        return new Promise((reslove,reject)=>{
+            var sql = 'UPDATE author SET pass=? WHERE idAuthor = ? and pass = ?';
+            conn.query(sql,[data.passNew,data.idAuthor, data.passOld],(err,result)=>{
+                if (err) {
+                    reject(err);
+                }
+                reslove(result);
+            })
+        })
+    },
     deleteAuthorByIdAuthor: (id) =>{
         return new Promise((reslove,reject)=>{
             var sql = 'DELETE FROM author WHERE idAuthor = ?';

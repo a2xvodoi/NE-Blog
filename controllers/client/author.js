@@ -18,22 +18,39 @@ module.exports ={
     },
     putInfo: async (req, res, next) =>{
         var data = req.body;
-        const author = await author_md.getAuthorById(data.idAuthor);
-        data = {
-            idAuthor: data.idAuthor,
-            accountName: data.accountName ? data.accountName : author[0].accountName,
-            pass: data.pass ? data.pass : author[0].pass,
-            authorName: data.authorName ? data.authorName : author[0].authorName,
-            job: data.job,
-            intro: data.intro,
-            avatar: req.file ? req.file.filename : author[0].avatar,
-        }
-        author_md.editAuthor(data)
-        .then(data =>{
+        try {
+            const author = await author_md.getAuthorById(data.idAuthor);
+            data = {
+                idAuthor: data.idAuthor,
+                accountName: data.accountName ? data.accountName : author[0].accountName,
+                pass: data.pass ? data.pass : author[0].pass,
+                authorName: data.authorName ? data.authorName : author[0].authorName,
+                job: data.job,
+                intro: data.intro,
+                avatar: req.file ? req.file.filename : author[0].avatar,
+            }
+            author_md.editAuthor(data);
             res.json({status: 200});
+            
+        } catch (error) {
+            res.json({status: 500});
+        }
+        
+    },
+    changePass: (req, res, next) =>{
+        author_md.changePass({
+            idAuthor: req.session.author.idAuthor,
+            passOld: req.body.passOld,
+            passNew: req.body.passNew,
+        })
+        .then(data =>{
+            res.json({
+                status:200,
+                success: data.changedRows,
+            });
         })
         .catch(err =>{
-            res.json({status: 500});
+            res.json({status:500});
         })
     },
     listPostByAuthor: (req, res, next) =>{
