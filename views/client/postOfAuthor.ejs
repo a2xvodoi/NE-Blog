@@ -1,4 +1,5 @@
 <%- include('header')  %>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
     <%- include('nav')  %>
     <div class="h2 mt-5 ms-5">Quản lý bài viết</div>
     <div class="container post">
@@ -8,7 +9,7 @@
               <h4 class="card-heading">Bài viết của tôi</h4>
             </div>
             <div class="card-body table-responsive">
-              <table class="table card-text">
+              <table id="table-post" class="table card-text table-striped">
                 <thead>
                   <tr class="align-top">
                     <th>Mã</th>
@@ -69,3 +70,10 @@
     </div>
     <script src="/javascripts/post.js"></script>
 <%- include('footer')  %>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#table-post').DataTable();
+  });
+</script>
