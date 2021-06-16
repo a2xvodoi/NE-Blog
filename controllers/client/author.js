@@ -56,9 +56,21 @@ module.exports ={
     listPostByAuthor: (req, res, next) =>{
         post_md.getPostByIdAuthor(req.params.id)
         .then(data=>{
+            var page = parseInt(req.query.page ? req.query.page : 1);
+            var perPage = 12;
+            var totalPage = Math.ceil(data.length/perPage);
+            if (page >0) {
+                page = totalPage <= page ? totalPage : page;
+                req.query.page = totalPage;
+            }else{
+                page =1;
+                req.query.page=1;
+            }
             res.render('client/authorPost',{
                 title: data[0].authorName,
-                data: data,
+                data: data.slice((page-1)*perPage,perPage*page),
+                currentPage: page,
+                totalPage: totalPage,
                 author: data[0],
                 err: false,
             });

@@ -5,9 +5,21 @@ module.exports ={
     index : (req, res, next) =>{
         post_md.getAllPost()
         .then(data=>{
+            var page = parseInt(req.query.page ? req.query.page : 1);
+            var perPage = 6;
+            var totalPage = Math.ceil(data.length/perPage);
+            if (page >0) {
+                page = totalPage <= page ? totalPage : page;
+                req.query.page = totalPage;
+            }else{
+                page =1;
+                req.query.page=1;
+            }
             res.render('client/index', { 
                 title: 'Blog',
-                data: data,
+                data: data.slice((page-1)*perPage,perPage*page),
+                currentPage: page,
+                totalPage: totalPage,
                 author: req.session.author ?? 0 ,
             });
         })

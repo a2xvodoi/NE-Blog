@@ -52,10 +52,41 @@
                   </div>
                 </div>
                   <% }) %>
+                  <% } else { %>
+                   <div class="text-center text-danger">Không tìm thất bài viết</div>
               <% } %>
               <!--card-->
-            
           </div>
+          <nav aria-label="..." class="container" id="pagination">
+            <ul class="pagination">
+              <li class="page-item <% if (currentPage == 1) { %>
+                disabled
+              <% } %>">
+              <a class="page-link" href="/author/<%= data[0].idAuthor %>?page=<%= currentPage -1 %>">Previous</a>
+              </li>
+
+              <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %>
+              <% if (i !== 1) { %>
+                  <li class="disabled">...</li>
+              <% } %>
+              <% for (; i <= (Number(currentPage) + 4) && i <= totalPage; i++) { %>
+                <li class="page-item <% if (i == currentPage) { %>
+                  active
+                  <% } %>">
+                    <a class="page-link" href="/author/<%= data[0].idAuthor %>?page=<%= i %>"><%= i %> </a>
+                  </li>
+                  <% if (i == Number(currentPage) + 4 && i < totalPage) { %>
+                      <li class="disabled">...</li>
+                  <% } %>
+              <% } %>
+              
+              <li class="page-item <% if (currentPage == totalPage) { %>
+                disabled
+              <% } %>">
+                <a class="page-link " href="/author/<%= data[0].idAuthor %>?page=<%= currentPage +1 %>">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
     </main>
     <!--main-->
