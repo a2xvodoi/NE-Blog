@@ -71,7 +71,8 @@ module.exports ={
                 data: data.slice((page-1)*perPage,perPage*page),
                 currentPage: page,
                 totalPage: totalPage,
-                author: data[0],
+                author: req.session.author ?? 0,
+                infoAuthor: data[0],
                 err: false,
             });
         })
@@ -80,7 +81,7 @@ module.exports ={
                 title: 'Lỗi',
                 err: 'Không tìm thấy bài viết nào',
                 data: false,
-                author: false,
+                author: req.session.author ?? 0,
             });
         })
     },
