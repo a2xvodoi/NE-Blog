@@ -35,6 +35,17 @@ module.exports = {
             })
         })
     },
+    createAuthor: (data) =>{
+        return new Promise((reslove,reject)=>{
+            var sql = 'INSERT INTO author SET ?';
+            conn.query(sql,data,(err,result)=>{
+                if (err) {
+                    reject(err);
+                }
+                reslove(result);
+            })
+        })
+    },
     editAuthor: (data) =>{
         return new Promise((reslove,reject)=>{
             var sql = 'UPDATE author SET avatar = ?, accountName=?, pass=?, authorName=?, job =?, intro =? WHERE idAuthor = ?';

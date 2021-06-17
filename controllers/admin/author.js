@@ -15,6 +15,21 @@ module.exports = {
         })
         
     },
+    create: (req, res, next) =>{
+        res.render('admin/author/create',{
+            user: req.session.admin,
+        });
+    },
+    postCreate: (req, res, next) =>{
+        req.body.avatar = req.file.filename;
+        author_md.createAuthor(req.body)
+        .then(data =>{
+            res.redirect('back');
+        })
+        .catch(err =>{
+            res.send('lỗi' +err);
+        })
+    },
     detail: (req, res,next) =>{
         author_md.getAuthorById(req.params.id)
         .then(data =>{

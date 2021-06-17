@@ -18,6 +18,10 @@ router.use(login_Midd.requireLogin);
 /* GET index author page. */
 router.get('/', authorController.index);
 
+/* GET create author page. */
+router.get('/create', authorController.create);
+router.post('/create',upload.single('avatar'), authorController.postCreate);
+
 /* GET detail author page. */
 router.get('/:id', authorController.detail);
 
