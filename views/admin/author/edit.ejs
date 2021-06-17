@@ -20,7 +20,7 @@
 
               <!-- container-fluid -->
               <% if (data) { %>
-                <form action="/admin/author/<%= data.idAuthor%>/edit?_method=PUT" method="post">
+                <form action="/admin/author/<%= data.idAuthor%>/edit?_method=PUT" method="post" enctype="multipart/form-data">
                   <div class="container-fluid">
                       <div class="text-center h4 m-5">Chỉnh sửa thông tin</div> 
                       <div class="row row-cols-md-2 row-cols-1">
@@ -29,8 +29,10 @@
                             <input type="text" class="form-control" id="idAuthor" name="idAuthor" placeholder="Mã tác giả" value="<%= data.idAuthor %>" readonly>
                           </div>
                           <div class="col mt-3 form-group">
-                            <label for="avatar">Avatar</label>
-                            <input type="text" class="form-control" id="avatar" name="avatar" placeholder="Avatar" value="<%= data.avatar %>">
+                            <label for="avatar">Avatar</label><br>
+                            <img src="/uploads/<%= data.avatar %>" class="img-fluid" width="20%" alt="" id="author-img">
+                            <input type="file" class="form-control" id="avatar" name="avatar" placeholder="Avatar" value="<%= data.avatar %>" hidden>
+                            <label for="avatar" style="cursor: pointer;">Chọn ảnh</label>
                           </div>
                           <div class="col mt-3 form-group">
                             <label for="accountName">Tên đăng nhập</label>
@@ -85,6 +87,19 @@
     
 <%- include('../footer') %> 
 <script>
+  $('#avatar').change((e) =>{
+        if ($('#avatar').val() != '') {
+            var ext = $('#avatar').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext,['jpg','jpeg','png']) == -1) {
+                alert('Chỉ hỗ trợ nhận dạng ảnh JPG, JPEG, PNG');
+                $('#avatar').val('');
+            } else {
+                $('#author-img').attr('src',URL.createObjectURL(e.target.files[0]));
+            }
+        } else {
+            
+        }
+    })
   function goBack(){
     window.history.back();
   }

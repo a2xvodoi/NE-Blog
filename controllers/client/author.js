@@ -129,7 +129,7 @@ module.exports ={
         data.created_at = now;
         data.updated_at = now;
         data.idAuthor = req.session.author.idAuthor;
-        
+        data.bg_image = '/uploads/' + req.file.filename;
         post_md.insertPostByAuthor(data)
         .then(data =>{
             res.redirect('/author/post');

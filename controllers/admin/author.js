@@ -41,6 +41,7 @@ module.exports = {
         })
     },
     putEdit: (req, res, next) =>{
+        req.body.avatar = req.file.filename;
         author_md.editAuthor(req.body)
         .then(data =>{
             res.redirect('back');

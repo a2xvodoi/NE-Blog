@@ -13,6 +13,7 @@
                 <thead>
                   <tr class="align-top">
                     <th>Mã</th>
+                    <th>Ảnh nền</th>
                     <th>Tiêu đề</th>
                     <th>Nội dung</th>
                     <th>Danh mục</th>
@@ -24,8 +25,11 @@
                     <% if (data) { %>
                      <% data.forEach(item => { %>
                         <tr>
-                            <th scope="row"><%= item.idpost %> </th>
-                            <td><%= item.title %></td>
+                          <th scope="row"><%= item.idpost %> </th>
+                          <th>
+                            <img src="<%= item.bg_image %>" alt="<%= item.bg_image %>" width="100px" height="100px"/>
+                          </th>
+                          <td><%= item.title %></td>
                             <td><%= item.pre %></td>
                             <td><%= item.categoryName %></td>
                             <% 

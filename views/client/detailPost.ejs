@@ -19,14 +19,14 @@
                           </ol>
                         </nav>
                   </div>
-                  <img src="https://itviec.com/blog/wp-content/uploads/2021/05/machine-learning-la-gi-thumbnail-1-1.jpg"
+                  <img src="<%= item.bg_image %>"
                     class="card-img-top" alt="img">
                   
                   <div class="card-body">
                     <h2 class="card-title h2"><%= data.title %> </h2>
                     <h6 class="card-subtitle mb-2 text-muted">
                       <a href="/author/<%= data.idAuthor %>">
-                      <img src="https://itviec.com/blog/wp-content/uploads/2021/03/blog-avatar.jpg" alt="">
+                      <img src="/uploads/<%= item.avatar %> " alt="<%= item.avatar %>">
                       <%= data.authorName %></a>
                     </h6>
                     <%- data.content %> 

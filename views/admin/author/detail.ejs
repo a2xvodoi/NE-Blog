@@ -27,7 +27,9 @@
                                 <div>Mã tác giả: <%= data.idAuthor %> </div>
                             </div>
                             <div class="col mt-3">
-                                <div>Avatar: <%= data.avatar %> </div>
+                                <div>Avatar: <br>
+                                    <img src="/uploads/<%= data.avatar %>" class="img-fluid" width="20%" alt="">
+                                </div>
                             </div>
                             <div class="col mt-3">
                                 <div>Tên đăng nhập: <%= data.accountName %> </div>

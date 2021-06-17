@@ -14,8 +14,14 @@
 </script>
     <%- include('nav') %>
         <div class="h2 mt-5 ms-5">Thêm bài viết</div>
-        <form action="/author/post/create" method="POST">
+        <form action="/author/post/create" method="POST" enctype="multipart/form-data">
             <div class="container">
+                <div class="text-center">
+                    <img src="/uploads/rey-seven-nm-mZ4Cs2I-unsplash_397351.jpg" id="post-image" class="img-fuid" width="60%" alt="img">
+                    <br>
+                    <input type="file" name="bg_image" hidden id="bg_image"/>
+                    <label for="bg_image" class="mb-3" style="cursor: pointer;">Chọn ảnh</label>
+                </div>
                 <div class="row">
                     <div class="mb-3 col-md">
                         <label for="titlePost" class="form-label">Tiêu đề</label>
@@ -49,5 +55,18 @@
         var pre = tinymce.activeEditor.getContent({format: "text"});
     $('#pre').val(pre.slice(0,200) + ' ...');
     })
-    
+    $('#bg_image').change((e) =>{
+        if ($('#bg_image').val() != '') {
+            var ext = $('#bg_image').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext,['jpg','jpeg','png']) == -1) {
+                alert('Chỉ hỗ trợ nhận dạng ảnh JPG, JPEG, PNG');
+                $('#bg_image').val('');
+            } else {
+                $('#post-image').attr('src',URL.createObjectURL(e.target.files[0]));
+            }
+        } else {
+            
+        }
+    })
+        
 </script>

@@ -27,6 +27,9 @@
                         updated_at = day + '/' + month + '/' + year;
                     %> 
                     <h3 class="text-center"><%= data.title %> <sub style="font-style: italic;"><%= updated_at %></sub></h3>
+                    <div class="text-center">
+                      <img src="<%= data.bg_image %>" alt="" style="box-shadow: 1px 1px 1px black;">
+                    </div>
                     <div class="row row-cols-md-2 row-cols-1 mt-5">
                         <div class="col">
                             Tác giả: <%= data.authorName %> 

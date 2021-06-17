@@ -25,7 +25,7 @@ router.get('/post',loginMiddle.requireLogin, authorController.postIndex);
 // GET create post page
 router.get('/post/create',loginMiddle.requireLogin, authorController.getCreatePost);
 // POST create post page
-router.post('/post/create', authorController.createPost);
+router.post('/post/create',upload.single('bg_image'), authorController.createPost);
 
 // GET edit post page
 router.get('/post/:id/edit',loginMiddle.requireLogin, authorController.getEditPost);

@@ -33,6 +33,7 @@
                                         <tr>
                                             <th>Mã</th>
                                             <th>Tiêu đề</th>
+                                            <th>Ảnh nền</th>
                                             <th>Nội dung</th>
                                             <th>Danh mục</th>
                                             <th>Tác giả</th>
@@ -46,6 +47,9 @@
                                             <tr>
                                                 <th scope="row"><%= item.idpost %> </th>
                                                 <td><%= item.title %></td>
+                                                <td>
+                                                    <img src="<%= item.bg_image %>" alt="" width="100px" height="100px">
+                                                </td>
                                                 <td><%= item.pre.slice(0,100) %> ...</td>
                                                 <td><%= item.categoryName %></td>
                                                 <td><%= item.authorName %></td>
