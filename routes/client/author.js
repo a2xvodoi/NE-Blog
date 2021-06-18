@@ -30,7 +30,7 @@ router.post('/post/create',upload.single('bg_image'), authorController.createPos
 // GET edit post page
 router.get('/post/:id/edit',loginMiddle.requireLogin, authorController.getEditPost);
 // PUT edit post page
-router.put('/post/:id/edit', authorController.editPost);
+router.put('/post/:id/edit',upload.single('bg_image'), authorController.editPost);
 
 // DELETE post 
 router.delete('/post/:id/delete', authorController.deletePost);
