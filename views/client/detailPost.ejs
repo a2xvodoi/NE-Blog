@@ -29,7 +29,9 @@
                       <img src="/uploads/<%= data.avatar %> " alt="<%= data.avatar %>">
                       <%= data.authorName %></a>
                     </h6>
-                    <%- data.content %> 
+                    <div class="container">
+                      <%- data.content %> 
+                    </div>
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">Last updated <%= data.updated_at %> </small>
